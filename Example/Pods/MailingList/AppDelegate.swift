@@ -3,7 +3,6 @@
 //  MailingList
 //
 //  Created by Mark Bridges on 28/09/2017.
-//  Copyright © 2017 Mark Bridges. All rights reserved.
 //
 
 import Cocoa

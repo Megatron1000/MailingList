@@ -2,23 +2,34 @@
 //  ViewController.swift
 //  MailingList
 //
-//  Created by megatron1000 on 09/28/2017.
-//  Copyright (c) 2017 megatron1000. All rights reserved.
+//  Created by Mark Bridges on 28/09/2017.
+//  Copyright © 2017 Mark Bridges. All rights reserved.
 //
 
-import UIKit
+import Cocoa
+import MailingList
 
-class ViewController: UIViewController {
+class ViewController: NSViewController {
+    
+    let mailingListPrompter = MailingListPrompter(suiteName: "com.bridgetech.mailinglist",
+                                                  apiKey: "key-8394b3e3e9ae7586abc1ff93d95451d1",
+                                                  domain: "mailgun.bridgetech.io",
+                                                  bundleIdentifier: Bundle.main.bundleIdentifier!)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        mailingListPrompter.showPromptIfNecessary()
+                
+        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override var representedObject: Any? {
+        didSet {
+        // Update the view, if already loaded.
+        }
     }
+
 
 }
 
