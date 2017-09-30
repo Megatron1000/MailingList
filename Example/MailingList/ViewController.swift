@@ -11,25 +11,42 @@ import MailingList
 
 class ViewController: NSViewController {
     
-    let mailingListPrompter = MailingListPrompter(suiteName: "com.bridgetech.mailinglist",
-                                                  apiKey: "key-8394b3e3e9ae7586abc1ff93d95451d1",
-                                                  domain: "mailgun.bridgetech.io",
-                                                  bundleIdentifier: Bundle.main.bundleIdentifier!)
+    let mailingListPrompter = MailingListPrompter(suiteName: "the user default suite's identifier",
+                                                  apiKey: "your mailgun api key",
+                                                  domain: "the mailgun api",
+                                                  appIdentifier: Bundle.main.bundleIdentifier!,
+                                                  appName: Bundle.main.displayName!
+                                                  )
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mailingListPrompter.showPromptIfNecessary()
+        mailingListPrompter.showPromptIfNecessary(completion: { result in
+            
+            switch result {
                 
-        // Do any additional setup after loading the view.
+            case .signedUp(let email):
+                break
+                
+            case .registeredNewAppIdentifier(let email):
+                break
+                
+            case .emailAndAppIdentifierAlreadyRegistered(let email):
+                break
+                
+            case .failed(let email, let error):
+                break
+                
+            case .didntSignUp:
+                break
+                
+            case .suppressed:
+                break
+                
+            }
+            
+        })
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
 
 }
 
