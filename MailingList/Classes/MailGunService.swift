@@ -28,8 +28,8 @@ class MailGunService {
             case .success(let data):
                 
                 do {
-                    let member = try JSONDecoder().decode(Member.self, from: data)
-                    completion(.success(member))
+                    let memberContainer = try JSONDecoder().decode(MemberContainer.self, from: data)
+                    completion(.success(memberContainer.member))
                 } catch {
                     completion(.failure(error))
                     return
@@ -51,7 +51,7 @@ class MailGunService {
             fatalError("Unable to form URL for request")
         }
         
-        let appsDictionary = ["appIdentifiers" : member.bundleIdentifiers]
+        let appsDictionary = ["appIdentifiers" : member.appIdentifiers]
         let encodedVarsData = try? JSONEncoder().encode(appsDictionary)
         let encodedVarsString = String(data: encodedVarsData!, encoding: .utf8)
         
@@ -83,7 +83,7 @@ class MailGunService {
             fatalError("Unable to form URL for request")
         }
         
-        let appsDictionary = ["appIdentifiers" : member.bundleIdentifiers]
+        let appsDictionary = ["appIdentifiers" : member.appIdentifiers]
         let encodedVarsData = try? JSONEncoder().encode(appsDictionary)
         let encodedVarsString = String(data: encodedVarsData!, encoding: .utf8)
         

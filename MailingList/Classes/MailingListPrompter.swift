@@ -5,7 +5,7 @@ public class MailingListPrompter {
     let suiteName: String
     let apiKey: String
     let domain: String
-    let bundleIdentifier: String
+    let appIdentifier: String
     
     private let emailAddressKey = "emailAddress"
     
@@ -22,20 +22,20 @@ public class MailingListPrompter {
     
     // MARK: Initialisation
     
-    public required init(suiteName: String, apiKey: String, domain: String, bundleIdentifier: String) {
+    public required init(suiteName: String, apiKey: String, domain: String, appIdentifier: String) {
         self.suiteName = suiteName
         self.apiKey = apiKey
         self.domain = domain
-        self.bundleIdentifier = bundleIdentifier
+        self.appIdentifier = appIdentifier
     }
     
     public func showPromptIfNecessary() {
         
         if let existingEmail = defaults.string(forKey: emailAddressKey) {
-            addBundleIdentifier(toEmail: existingEmail)
+            addAppIdentifier(toEmail: existingEmail)
         }
         else {
-            
+        
             let storyboard = NSStoryboard(name: NSStoryboard.Name("MailingList") , bundle: Bundle(for: MailingListPrompter.self))
             let windowController = storyboard.instantiateInitialController() as! NSWindowController
             (windowController.contentViewController as! SignUpPromptViewController).delegate = self
@@ -46,15 +46,13 @@ public class MailingListPrompter {
         
     }
     
-    private func addBundleIdentifier(toEmail email: String) {
-        
-        let bundleIdentifier = self.bundleIdentifier
+    private func addAppIdentifier(toEmail email: String) {
         
         mailingListService.getMember(forEmail: email) { [weak self] result in
             
             switch result {
             case .success(let member):
-                self?.addBundleIdentifier(toMember: member)
+                self?.addAppIdentifier(toMember: member)
                 
             case .failure(let error):
                 break
@@ -65,14 +63,14 @@ public class MailingListPrompter {
         
     }
     
-    private func addBundleIdentifier(toMember member: Member) {
+    private func addAppIdentifier(toMember member: Member) {
         
-        if member.bundleIdentifiers.contains(bundleIdentifier) == false {
+        if member.appIdentifiers.contains(appIdentifier) == false {
             
-            var newIdentifiers = member.bundleIdentifiers
-            newIdentifiers.insert(bundleIdentifier)
+            var newIdentifiers = member.appIdentifiers
+            newIdentifiers.insert(appIdentifier)
             
-            let updatedMember = Member(address: member.address, bundleIdentifiers: newIdentifiers)
+            let updatedMember = Member(address: member.address, appIdentifiers: newIdentifiers)
             
             mailingListService.updateMember(updatedMember, withCompletion: { result in
                 
@@ -95,7 +93,7 @@ extension MailingListPrompter: SignUpPromptViewControllerDelegate {
     
     func signUpPromptViewController(signUpPromptViewController: SignUpPromptViewController, didEnterEmail email: String) {
         
-        let member = Member(address: email, bundleIdentifiers: Set([bundleIdentifier]))
+        let member = Member(address: email, appIdentifiers: Set([appIdentifier]))
         defaults.setValue(email, forKey: emailAddressKey)
         
         mailingListService.addMember(member) { result in
