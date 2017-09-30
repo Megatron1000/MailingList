@@ -20,6 +20,8 @@
 		8D636186DC90823FFF9FDC4C031BB1D9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F1F760F6D9CB674BD34DE27E068B /* Result.swift */; };
 		8DDB7F56B3E995FF91F365B989D68EDE /* MailingListPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C2BFAF0DD686E473281D2EEBC90A98 /* MailingListPrompter.swift */; };
 		AB111C851F7EBE190032FFE7 /* MailingList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1735529F40F8C927B1119283C81575 /* MailingList.storyboard */; };
+		AB19296D1F7FC4E400432B96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB19296C1F7FC4D600432B96 /* Assets.xcassets */; };
+		AB19296F1F7FD80B00432B96 /* Bundle+AppName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB19296E1F7FD80B00432B96 /* Bundle+AppName.swift */; };
 		B509394A021B7DA403707C84E9BD5B67 /* Pods-MailingList_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 146EDF8E2A9D6A170C80EC4AB11552A4 /* Pods-MailingList_Example-dummy.m */; };
 		C1FF7D77586F48950BE1264DC97667BC /* MailingList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 509C76B47E36459E31956C81C6E382DB /* MailingList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CAEF18416ECF3ED57EA4DCD83263B085 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
@@ -68,6 +70,8 @@
 		9F5E5B2DCE04C58945AF3093E0C882DE /* MailingList.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MailingList.modulemap; sourceTree = "<group>"; };
 		A16B4ACD9C461CDD2C40A206654C2FA0 /* Pods-MailingList_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MailingList_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A2C2BFAF0DD686E473281D2EEBC90A98 /* MailingListPrompter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MailingListPrompter.swift; path = MailingList/Classes/MailingListPrompter.swift; sourceTree = "<group>"; };
+		AB19296C1F7FC4D600432B96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = MailingList/Assets/Assets.xcassets; sourceTree = "<group>"; };
+		AB19296E1F7FD80B00432B96 /* Bundle+AppName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Bundle+AppName.swift"; path = "MailingList/Classes/Bundle+AppName.swift"; sourceTree = "<group>"; };
 		AE8109FB8CE36A8B584142137FD336E9 /* HTTPClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPClient.swift; path = MailingList/Classes/HTTPClient.swift; sourceTree = "<group>"; };
 		B331DA74C812E0244E17916DBB76307D /* SignUpPromptViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SignUpPromptViewController.swift; path = MailingList/Classes/SignUpPromptViewController.swift; sourceTree = "<group>"; };
 		B8B04BE63B2B955287CA235C05F2A32D /* Pods-MailingList_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MailingList_Tests.modulemap"; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 		8C2F198AB308D4054C86471CCFA8A69C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AB19296C1F7FC4D600432B96 /* Assets.xcassets */,
 				CC1735529F40F8C927B1119283C81575 /* MailingList.storyboard */,
 			);
 			name = Resources;
@@ -247,6 +252,7 @@
 				4B2CD0DA7429596FA952BB3F88C02005 /* Member.swift */,
 				8933F1F760F6D9CB674BD34DE27E068B /* Result.swift */,
 				B331DA74C812E0244E17916DBB76307D /* SignUpPromptViewController.swift */,
+				AB19296E1F7FD80B00432B96 /* Bundle+AppName.swift */,
 				8C2F198AB308D4054C86471CCFA8A69C /* Resources */,
 				89C3DE897C5DDBAADB37F73BF1F90C87 /* Support Files */,
 			);
@@ -390,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB111C851F7EBE190032FFE7 /* MailingList.storyboard in Resources */,
+				AB19296D1F7FC4E400432B96 /* Assets.xcassets in Resources */,
 				14600845AAE30376F23523911E607DC8 /* MailingList.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +437,7 @@
 				2CF00A42ED2154CD0D5A3E80352DAB36 /* MailingList-dummy.m in Sources */,
 				8DDB7F56B3E995FF91F365B989D68EDE /* MailingListPrompter.swift in Sources */,
 				D0951C4B21FB0C17EB89978F90339B47 /* Member.swift in Sources */,
+				AB19296F1F7FD80B00432B96 /* Bundle+AppName.swift in Sources */,
 				8D636186DC90823FFF9FDC4C031BB1D9 /* Result.swift in Sources */,
 				5F3E5C3AA4432DD2DF6FB8FD99E654F7 /* SignUpPromptViewController.swift in Sources */,
 			);

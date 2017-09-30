@@ -9,33 +9,53 @@
 import Cocoa
 
 protocol SignUpPromptViewControllerDelegate: class {
-    func signUpPromptViewController(signUpPromptViewController: SignUpPromptViewController, didEnterEmail email: String)
+    func signUpPromptViewController(signUpPromptViewController: SignUpPromptViewController, didFinishedWithState state: SignUpPromptViewController.SignUpState)
 }
 
 class SignUpPromptViewController: NSViewController {
-
-    @IBOutlet private var emailAddressTextField: NSTextField? {
-        didSet {
-            emailAddressTextField?.delegate = self
-        }
+    
+    enum SignUpState {
+        case didSignUp(email: String)
+        case dismissed(suppressedFuturePrompts: Bool)
     }
+
+    @IBOutlet private var titleTextField: NSTextField?
+    @IBOutlet private var emailAddressTextField: NSTextField?
+    @IBOutlet private var suppressionButton: NSButton?
+    
+    var appName: String?
     
     weak var delegate: SignUpPromptViewControllerDelegate?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear() {
+        super.viewWillAppear()
         
+        titleTextField?.stringValue = "Welcome to " + (appName ?? "")
+        view.window?.delegate = self
     }
-
+    
+    @IBAction private func twitterPressed(_ sender: Any) {
+        NSWorkspace.shared.open(URL(string: "https://twitter.com/MarkBridgesApps")!)
+    }
+    
+    @IBAction private func continuePressed(_ sender: Any) {
+        self.view.window?.close()
+    }
 }
 
-extension SignUpPromptViewController: NSTextFieldDelegate {
+extension SignUpPromptViewController: NSWindowDelegate {
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    func windowWillClose(_ notification: Notification) {
         
-//        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-//        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluateWithObject(candidate)
+        let state: SignUpState
+        let suppressed = (suppressionButton?.state == .on)
         
-        delegate?.signUpPromptViewController(signUpPromptViewController: self, didEnterEmail: emailAddressTextField?.stringValue ?? "")
+        if let email = emailAddressTextField?.stringValue, email.isEmpty == false {
+            state = .didSignUp(email: email)
+        } else {
+            state = .dismissed(suppressedFuturePrompts: suppressed)
+        }
+        
+        delegate?.signUpPromptViewController(signUpPromptViewController: self, didFinishedWithState: state)
     }
 }
