@@ -53,7 +53,12 @@ public class MailingListPrompter {
             addAppIdentifier(toEmail: existingEmail)
         }
         else if defaults.bool(forKey: supressMailingListPromptKey) != true {
-            let storyboard = NSStoryboard(name: NSStoryboard.Name("MailingList") , bundle: Bundle(for: MailingListPrompter.self))
+            
+            let frameworkBundle = Bundle(for: MailingListPrompter.self)
+            let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MailingList.bundle")
+            let resourceBundle = Bundle(url: bundleURL!)!
+            let storyboard = NSStoryboard(name: NSStoryboard.Name("MailingList") , bundle: resourceBundle)
+            
             let windowController = storyboard.instantiateInitialController() as! NSWindowController
             let viewController = (windowController.contentViewController as! SignUpPromptViewController)
             viewController.delegate = self
