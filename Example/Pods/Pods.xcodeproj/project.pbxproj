@@ -19,9 +19,9 @@
 		840266780D409E7D34B52DAA902F4721 /* Pods-MailingList_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A22F600F82B03DB6BFAD12412017F3E /* Pods-MailingList_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D636186DC90823FFF9FDC4C031BB1D9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933F1F760F6D9CB674BD34DE27E068B /* Result.swift */; };
 		8DDB7F56B3E995FF91F365B989D68EDE /* MailingListPrompter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C2BFAF0DD686E473281D2EEBC90A98 /* MailingListPrompter.swift */; };
-		AB19296D1F7FC4E400432B96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB19296C1F7FC4D600432B96 /* Assets.xcassets */; };
 		AB19296F1F7FD80B00432B96 /* Bundle+AppName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB19296E1F7FD80B00432B96 /* Bundle+AppName.swift */; };
 		AB1929B01F81794400432B96 /* MailingList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1735529F40F8C927B1119283C81575 /* MailingList.storyboard */; };
+		AB1929B11F8179B900432B96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB19296C1F7FC4D600432B96 /* Assets.xcassets */; };
 		B509394A021B7DA403707C84E9BD5B67 /* Pods-MailingList_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 146EDF8E2A9D6A170C80EC4AB11552A4 /* Pods-MailingList_Example-dummy.m */; };
 		C1FF7D77586F48950BE1264DC97667BC /* MailingList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 509C76B47E36459E31956C81C6E382DB /* MailingList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CAEF18416ECF3ED57EA4DCD83263B085 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270DD1219F1E6CF00379D39F252D87C6 /* Cocoa.framework */; };
@@ -395,7 +395,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB19296D1F7FC4E400432B96 /* Assets.xcassets in Resources */,
 				14600845AAE30376F23523911E607DC8 /* MailingList.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1929B11F8179B900432B96 /* Assets.xcassets in Resources */,
 				AB1929B01F81794400432B96 /* MailingList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
