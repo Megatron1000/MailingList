@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MailingList'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'Prompts for users to sign up to your mailing list, using the MailGun API'
 
   s.description      = <<-DESC

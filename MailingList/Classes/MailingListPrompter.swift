@@ -21,8 +21,10 @@ public class MailingListPrompter {
     
     private let emailAddressKey = "emailAddress"
     private let supressMailingListPromptKey = "supressMailingListPrompt1"
-
+    
     private var mailingListPrompterCompletion: MailingListPrompterCompletion?
+    
+    private var windowController: NSWindowController?
     
     lazy private var mailingListService: MailGunService = {
         return MailGunService(apiKey: self.apiKey, domain: self.domain)
@@ -59,12 +61,12 @@ public class MailingListPrompter {
             let resourceBundle = Bundle(url: bundleURL!)!
             let storyboard = NSStoryboard(name: NSStoryboard.Name("MailingList") , bundle: resourceBundle)
             
-            let windowController = storyboard.instantiateInitialController() as! NSWindowController
-            let viewController = (windowController.contentViewController as! SignUpPromptViewController)
+            windowController = storyboard.instantiateInitialController() as? NSWindowController
+            let viewController = (windowController?.contentViewController as! SignUpPromptViewController)
             viewController.delegate = self
             viewController.appName = appName
             
-            windowController.window?.makeKeyAndOrderFront(self)
+            windowController?.window?.makeKeyAndOrderFront(self)
             NSApp.activate(ignoringOtherApps: true)
         }
         else {
@@ -104,10 +106,10 @@ public class MailingListPrompter {
                 switch result {
                 case .success():
                     self?.mailingListPrompterCompletion?(.registeredNewAppIdentifier(email: member.address))
-
+                    
                 case .failure(let error):
                     self?.mailingListPrompterCompletion?(.failed(email: member.address, error: error))
-
+                    
                 }
                 
             })
@@ -122,7 +124,7 @@ public class MailingListPrompter {
 extension MailingListPrompter: SignUpPromptViewControllerDelegate {
     
     func signUpPromptViewController(signUpPromptViewController: SignUpPromptViewController, didFinishedWithState state: SignUpPromptViewController.SignUpState) {
-
+        
         switch state {
         case .didSignUp(let email):
             let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -161,6 +163,6 @@ extension MailingListPrompter: SignUpPromptViewControllerDelegate {
         
     }
     
-
-
+    
+    
 }
