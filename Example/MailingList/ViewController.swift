@@ -26,15 +26,20 @@ class ViewController: NSViewController {
             switch result {
                 
             case .signedUp(let email):
+                print(email)
                 break
                 
             case .registeredNewAppIdentifier(let email):
+                print(email)
                 break
                 
             case .emailAndAppIdentifierAlreadyRegistered(let email):
+                print(email)
                 break
                 
             case .failed(let email, let error):
+                print(email)
+                print(error)
                 break
                 
             case .didntSignUp:

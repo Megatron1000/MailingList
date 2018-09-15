@@ -1,5 +1,5 @@
 PODS:
-  - MailingList (0.1.0)
+  - MailingList (0.1.3)
 
 DEPENDENCIES:
   - MailingList (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MailingList: 59cbccd4057b441872279a408b1a3948d0134f96
+  MailingList: fec499056e195f0879cd9b4ac0633c4bf6085d19
 
 PODFILE CHECKSUM: 30b85ddb46c7d7a270fed1e7074eaa24646513cc
 
