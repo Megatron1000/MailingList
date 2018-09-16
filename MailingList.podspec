@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MailingList'
-  s.version          = '0.1.4'
+  s.version          = '0.1.5'
   s.summary          = 'Prompts for users to sign up to your mailing list, using the MailGun API'
 
   s.description      = <<-DESC
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/markbridgesapps'
 
   s.platform     = :osx, '10.11'
+  s.swift_version = '4.2'
 
   s.source_files = 'MailingList/Classes/**/*'
 
