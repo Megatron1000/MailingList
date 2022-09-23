@@ -24,8 +24,11 @@ final public class MailingListPrompter {
     private let supressMailingListPromptKey = "supressMailingListPrompt1"
     
     private var mailingListPrompterCompletion: MailingListPrompterCompletion?
-    
-    private var windowController: NSWindowController?
+        
+    private lazy var windowController: NSWindowController = {
+        let storyboard = NSStoryboard(name: "MailingList" , bundle: .module)
+        return (storyboard.instantiateInitialController() as? NSWindowController) ?? NSWindowController()
+    }()
     
     lazy private var mailingListService: MailGunService = {
         return MailGunService(apiKey: self.apiKey, domain: self.domain)
@@ -33,7 +36,8 @@ final public class MailingListPrompter {
     
     lazy private var defaults: UserDefaults = {
         guard let defaults =  UserDefaults(suiteName: suiteName) else {
-            fatalError("Unabled to initialise user defaults with suite named: \(suiteName)")
+            assertionFailure("Unable to initialise user defaults with suite named: \(suiteName)")
+            return .standard
         }
         return defaults
     }()
@@ -52,28 +56,34 @@ final public class MailingListPrompter {
         
         mailingListPrompterCompletion = completion
         
+        if CommandLine.arguments.contains("-force-show-mailing-list") {
+            showSignUpWindow()
+            return
+        }
+        
         if let existingEmail = defaults.string(forKey: emailAddressKey) {
             addAppIdentifier(toEmail: existingEmail)
         }
         else if defaults.bool(forKey: supressMailingListPromptKey) != true {
-            
-            let frameworkBundle = Bundle(for: MailingListPrompter.self)
-            let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("MailingList.bundle")
-            let resourceBundle = Bundle(url: bundleURL!)!
-            let storyboard = NSStoryboard(name: NSStoryboard.Name("MailingList"), bundle: resourceBundle)
-            
-            windowController = storyboard.instantiateInitialController() as? NSWindowController
-            let viewController = (windowController?.contentViewController as! SignUpPromptViewController)
-            viewController.delegate = self
-            viewController.appName = appName
-            
-            windowController?.window?.makeKeyAndOrderFront(self)
-            NSApp.activate(ignoringOtherApps: true)
+            showSignUpWindow()
         }
         else {
             mailingListPrompterCompletion?(.suppressed)
         }
         
+    }
+    
+    private func showSignUpWindow() {
+        guard
+            let viewController = (windowController.contentViewController as? SignUpPromptViewController) else {
+            assertionFailure("Unexpected view controller type")
+            return
+        }
+        viewController.delegate = self
+        viewController.appName = appName
+        
+        windowController.window?.makeKeyAndOrderFront(self)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     private func addAppIdentifier(toEmail email: String) {
