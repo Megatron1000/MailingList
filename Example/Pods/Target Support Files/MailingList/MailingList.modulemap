@@ -1,6 +1,0 @@
-framework module MailingList {
-  umbrella header "MailingList-umbrella.h"
-
-  export *
-  module * { export * }
-}

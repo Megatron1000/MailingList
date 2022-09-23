@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swifthttpstatuscodes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rhodgkins/SwiftHTTPStatusCodes",
+      "state" : {
+        "revision" : "a2c4f5f645dec3a5614ff82e391f44e22d778f87",
+        "version" : "3.3.2"
+      }
+    }
+  ],
+  "version" : 2
+}
