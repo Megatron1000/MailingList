@@ -706,14 +706,14 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="SignUpPromptViewController" customModule="MailingList" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="349"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="381"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eT4-jy-WWb">
-                                <rect key="frame" x="20" y="20" width="440" height="324"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eT4-jy-WWb">
+                                <rect key="frame" x="20" y="20" width="440" height="356"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-81-Pyv">
-                                        <rect key="frame" x="10" y="289" width="420" height="35"/>
+                                        <rect key="frame" x="10" y="321" width="420" height="35"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Welcome To My Awesome App" id="PpD-8i-Aw3">
                                             <font key="font" metaFont="systemSemibold" size="30"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -721,15 +721,15 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oYl-Ih-XQj">
-                                        <rect key="frame" x="133" y="257" width="174" height="24"/>
+                                        <rect key="frame" x="133" y="285" width="174" height="24"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Let's keep in touch." id="uly-DC-Hdh">
                                             <font key="font" metaFont="system" size="20"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UrG-ms-yC3">
-                                        <rect key="frame" x="-2" y="217" width="444" height="32"/>
+                                    <textField horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="UrG-ms-yC3">
+                                        <rect key="frame" x="-2" y="218" width="444" height="55"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="KoZ-eK-QZ7">
                                             <font key="font" metaFont="system"/>
                                             <string key="title">From time to time I might email you to let you know about updates to the developer tools I'm working on. They'll be no spam, I promise.</string>
@@ -738,24 +738,33 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O6d-ne-nvt">
-                                        <rect key="frame" x="0.0" y="187" width="440" height="22"/>
+                                        <rect key="frame" x="0.0" y="184" width="440" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="your@email.com" bezelStyle="round" id="B0s-Ng-6DM">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="NCx-Nc-TYR">
+                                        <rect key="frame" x="139" y="152" width="163" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="X1Z-cH-znm"/>
+                                        </constraints>
+                                    </customView>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xAW-fC-DUD">
-                                        <rect key="frame" x="179" y="163" width="82" height="16"/>
-                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="There's also" id="2Nf-D9-jU1">
+                                        <rect key="frame" x="113" y="124" width="214" height="16"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="You can also follow me on Twitter " id="2Nf-D9-jU1">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gnf-Mo-I8c">
-                                        <rect key="frame" x="170" y="55" width="100" height="100"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Twitter" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="KLO-YG-J5V">
+                                        <rect key="frame" x="170" y="92" width="100" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Ddk-ne-i3F"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Twitter" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="KLO-YG-J5V">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -763,8 +772,14 @@
                                             <action selector="twitterPressed:" target="XfG-lQ-9wD" id="9Z9-fh-Iwv"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-kK-eZo">
-                                        <rect key="frame" x="148" y="27" width="142" height="21"/>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="3si-LX-hsd">
+                                        <rect key="frame" x="139" y="60" width="163" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="ba9-it-agd"/>
+                                        </constraints>
+                                    </customView>
+                                    <button verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ie7-kK-eZo">
+                                        <rect key="frame" x="148" y="31" width="142" height="18"/>
                                         <buttonCell key="cell" type="check" title="Don't ask me again" bezelStyle="regularSquare" imagePosition="left" inset="2" id="B9r-Lz-YLl">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -790,8 +805,12 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -818,7 +837,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="663"/>
+            <point key="canvasLocation" x="75" y="662.5"/>
         </scene>
     </scenes>
     <resources>
