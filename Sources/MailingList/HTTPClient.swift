@@ -32,7 +32,7 @@ final class HTTPClient {
     
     // MARK: Network call
     
-    func makeNetworkRequest(with request: URLRequest, completion: @escaping ((Result<Data, Error>) -> Void)) {
+    func makeNetworkRequest(with request: URLRequest, completion: @escaping ((Result<(Data, HTTPURLResponse), Error>) -> Void)) {
         
         session.startDataTask(with: request, completionHandler: { (data, response, error) -> Void in
             
@@ -63,7 +63,7 @@ final class HTTPClient {
                 return
             }
             
-            completion(.success(data))
+            completion(.success((data, httpResponse)))
         })
     }
 }

@@ -13,15 +13,18 @@ final public class MailingListPrompter {
     }
     
     public typealias MailingListPrompterCompletion = ((MailingListPromptResult) -> ())
-    
+
+    /// The BridgeTech sign-up endpoint (an AWS Lambda), which holds the Mailgun API key server-side.
+    public static let defaultSignUpURL = URL(string: "https://soupcnr7p7.execute-api.us-east-1.amazonaws.com/prod/signup")!
+
     let suiteName: String
-    let apiKey: String
-    let domain: String
     let appIdentifier: String
     let appName: String
-    
+    let signUpURL: URL
+
     private let emailAddressKey = "emailAddress"
     private let supressMailingListPromptKey = "supressMailingListPrompt1"
+    private let registeredAppIdentifiersKey = "registeredAppIdentifiers"
     
     private var mailingListPrompterCompletion: MailingListPrompterCompletion?
         
@@ -30,8 +33,8 @@ final public class MailingListPrompter {
         return (storyboard.instantiateInitialController() as? NSWindowController) ?? NSWindowController()
     }()
     
-    lazy private var mailingListService: MailGunService = {
-        return MailGunService(apiKey: self.apiKey, domain: self.domain)
+    lazy private var signUpService: SignUpService = {
+        return SignUpService(signUpURL: self.signUpURL)
     }()
     
     lazy private var defaults: UserDefaults = {
@@ -44,12 +47,11 @@ final public class MailingListPrompter {
     
     // MARK: Initialisation
     
-    public required init(suiteName: String, apiKey: String, domain: String, appIdentifier: String, appName: String) {
+    public required init(suiteName: String, appIdentifier: String, appName: String, signUpURL: URL = MailingListPrompter.defaultSignUpURL) {
         self.suiteName = suiteName
-        self.apiKey = apiKey
-        self.domain = domain
         self.appIdentifier = appIdentifier
         self.appName = appName
+        self.signUpURL = signUpURL
     }
     
     public func showPromptIfNecessary(completion: @escaping MailingListPrompterCompletion) {
@@ -87,49 +89,39 @@ final public class MailingListPrompter {
     }
     
     private func addAppIdentifier(toEmail email: String) {
-        
-        mailingListService.getMember(forEmail: email) { [weak self] result in
-            
+
+        guard registeredAppIdentifiers.contains(appIdentifier) == false else {
+            mailingListPrompterCompletion?(.emailAndAppIdentifierAlreadyRegistered(email: email))
+            return
+        }
+
+        signUpService.signUp(email: email, appIdentifiers: [appIdentifier]) { [weak self] result in
+
             switch result {
-            case .success(let member):
-                self?.addAppIdentifier(toMember: member)
-                
+            case .success(_):
+                self?.markAppIdentifierRegistered()
+                self?.mailingListPrompterCompletion?(.registeredNewAppIdentifier(email: email))
+
             case .failure(let error):
                 self?.mailingListPrompterCompletion?(.failed(email: email, error: error))
-                
+
             }
-            
+
         }
-        
+
     }
-    
-    private func addAppIdentifier(toMember member: Member) {
-        
-        if member.appIdentifiers.contains(appIdentifier) == false {
-            
-            var newIdentifiers = member.appIdentifiers
-            newIdentifiers.insert(appIdentifier)
-            
-            let updatedMember = Member(address: member.address, appIdentifiers: newIdentifiers)
-            
-            mailingListService.updateMember(updatedMember, withCompletion: { [weak self] result in
-                
-                switch result {
-                case .success():
-                    self?.mailingListPrompterCompletion?(.registeredNewAppIdentifier(email: member.address))
-                    
-                case .failure(let error):
-                    self?.mailingListPrompterCompletion?(.failed(email: member.address, error: error))
-                    
-                }
-                
-            })
-        }
-        else {
-            mailingListPrompterCompletion?(.emailAndAppIdentifierAlreadyRegistered(email: member.address))
-        }
+
+    // Shared across apps via the suite, so each app only registers itself with the server once.
+    private var registeredAppIdentifiers: Set<String> {
+        return Set(defaults.stringArray(forKey: registeredAppIdentifiersKey) ?? [])
     }
-    
+
+    private func markAppIdentifierRegistered() {
+        var identifiers = registeredAppIdentifiers
+        identifiers.insert(appIdentifier)
+        defaults.setValue(identifiers.sorted(), forKey: registeredAppIdentifiersKey)
+    }
+
 }
 
 extension MailingListPrompter: SignUpPromptViewControllerDelegate {
@@ -144,15 +136,19 @@ extension MailingListPrompter: SignUpPromptViewControllerDelegate {
                 return
             }
             
-            let member = Member(address: email, appIdentifiers: Set([appIdentifier]))
             defaults.setValue(email, forKey: emailAddressKey)
-            
-            mailingListService.addMember(member) { [weak self] result in
-                
+
+            signUpService.signUp(email: email, appIdentifiers: [appIdentifier]) { [weak self] result in
+
                 switch result {
-                case .success():
+                case .success(.newMember):
+                    self?.markAppIdentifierRegistered()
                     self?.mailingListPrompterCompletion?(.signedUp(email: email))
-                    
+
+                case .success(.existingMemberUpdated):
+                    self?.markAppIdentifierRegistered()
+                    self?.mailingListPrompterCompletion?(.registeredNewAppIdentifier(email: email))
+
                 case .failure(let error):
                     self?.mailingListPrompterCompletion?(.failed(email: email, error: error))
                     
